@@ -4,7 +4,7 @@ class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
   static const String routeName = 'signup';
-  static const String routePath = '/$routeName';
+  static const String routePath = routeName;
 
   @override
   Widget build(BuildContext context) {
