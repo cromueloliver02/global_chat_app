@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:global_chat/sign_in/view/sign_in_page.dart';
+import 'package:global_chat/sign_up/view/sign_up_page.dart';
 import 'package:global_chat/splash/view/splash_page.dart';
 
 class AppRouter {
@@ -31,6 +32,16 @@ class AppRouter {
           pageKey: state.pageKey,
           page: const SignInPage(),
         ),
+        routes: [
+          GoRoute(
+            name: SignUpPage.routeName,
+            path: SignUpPage.routePath,
+            pageBuilder: (ctx, state) => _pageBuilder(
+              pageKey: state.pageKey,
+              page: const SignUpPage(),
+            ),
+          ),
+        ],
       ),
     ],
   );
