@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:global_chat/router/app_router.dart';
 import 'package:global_chat/theme/app_theme.dart';
 
 class GlobalChatApp extends StatelessWidget {
@@ -7,14 +8,11 @@ class GlobalChatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Global Chat App',
       theme: AppTheme.light,
-      home: const Scaffold(
-        body: Center(
-          child: Text('GLOBAL CHAT APP'),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      routerConfig: AppRouter.routerConfig,
     );
   }
 }
