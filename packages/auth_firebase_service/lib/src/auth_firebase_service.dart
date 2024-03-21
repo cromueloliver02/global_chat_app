@@ -64,20 +64,6 @@ class AuthFirebaseService implements AuthService {
   }
 
   @override
-  Future<void> signOut() async {
-    try {
-      await _firebaseAuth.signOut();
-    } on firestore.FirebaseException catch (error, stackTrace) {
-      throw FirebaseErrorUtils.handleFirebaseException(
-        error,
-        stackTrace: stackTrace,
-      );
-    } catch (error, stackTrace) {
-      throw UnexpectedException(error, stackTrace: stackTrace);
-    }
-  }
-
-  @override
   Future<void> signUp({
     required String username,
     required String email,
@@ -105,6 +91,20 @@ class AuthFirebaseService implements AuthService {
       await _setUserData(user, email, username);
     } on ServerException {
       rethrow;
+    } on firestore.FirebaseException catch (error, stackTrace) {
+      throw FirebaseErrorUtils.handleFirebaseException(
+        error,
+        stackTrace: stackTrace,
+      );
+    } catch (error, stackTrace) {
+      throw UnexpectedException(error, stackTrace: stackTrace);
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      await _firebaseAuth.signOut();
     } on firestore.FirebaseException catch (error, stackTrace) {
       throw FirebaseErrorUtils.handleFirebaseException(
         error,

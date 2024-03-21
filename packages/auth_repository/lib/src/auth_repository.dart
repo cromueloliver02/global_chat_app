@@ -1,7 +1,6 @@
-import 'package:fpdart/fpdart.dart';
-
 import 'package:auth_service/auth_service.dart';
 import 'package:core_utils/core_utils.dart';
+import 'package:fpdart/fpdart.dart';
 
 abstract interface class AuthRepository {
   StreamEither<User?> authStateChanges();
