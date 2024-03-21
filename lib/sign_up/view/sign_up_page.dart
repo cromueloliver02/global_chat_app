@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:global_chat/core/models/models.dart';
+import 'package:global_chat/core/utils/error_utils.dart';
+import 'package:global_chat/core/utils/helpers.dart';
 import 'package:global_chat/core/widgets/widgets.dart';
 import 'package:global_chat/injection/injection_container.dart';
 import 'package:global_chat/sign_in/view/sign_in_page.dart';
@@ -16,11 +19,26 @@ class SignUpPage extends StatelessWidget {
   static const String routeName = 'signup';
   static const String routePath = routeName;
 
+  void _signUpFailureListener(BuildContext ctx, SignUpState state) {
+    final ErrorDetails error = ErrorUtils.generateError(state.failure!);
+    showErrorDialog(
+      ctx,
+      title: error.title,
+      message: error.message,
+      failure: error.failure,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SignUpBloc>(
       create: (ctx) => SignUpBloc(authRepository: sl<AuthRepository>()),
-      child: const SignUpView(),
+      child: BlocListener<SignUpBloc, SignUpState>(
+        listenWhen: (prev, curr) =>
+            prev.status != curr.status && curr.status.isFailure,
+        listener: _signUpFailureListener,
+        child: const SignUpView(),
+      ),
     );
   }
 }
