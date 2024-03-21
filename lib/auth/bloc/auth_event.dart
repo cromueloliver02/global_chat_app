@@ -7,8 +7,8 @@ sealed class AuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-final class AuthStatusChangesSubscribed extends AuthEvent {
-  const AuthStatusChangesSubscribed();
+final class AuthStateChangesSubscribed extends AuthEvent {
+  const AuthStateChangesSubscribed();
 }
 
 final class AuthSignedOut extends AuthEvent {

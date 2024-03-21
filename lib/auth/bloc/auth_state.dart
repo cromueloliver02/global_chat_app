@@ -12,14 +12,14 @@ extension AuthStatusX on AuthStatus {
   bool get isAnauthenticated => this == AuthStatus.unauthenticated;
 }
 
-extension SubscribeStatusX on AuthSubscribeStatus {
+extension AuthSubscribeX on AuthSubscribeStatus {
   bool get isInitial => this == AuthSubscribeStatus.initial;
   bool get isInProgress => this == AuthSubscribeStatus.inProgress;
   bool get isSuccess => this == AuthSubscribeStatus.success;
   bool get isFailure => this == AuthSubscribeStatus.failure;
 }
 
-extension SignOutStatusX on AuthSignOutStatus {
+extension AuthSignOutX on AuthSignOutStatus {
   bool get isInitial => this == AuthSignOutStatus.initial;
   bool get isInProgress => this == AuthSignOutStatus.inProgress;
   bool get isSuccess => this == AuthSignOutStatus.success;
