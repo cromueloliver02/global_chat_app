@@ -41,6 +41,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  auth_firebase_service:
+    dependency: "direct main"
+    description:
+      path: "packages/auth_firebase_service"
+      relative: true
+    source: path
+    version: "0.0.1"
   auth_repository:
     dependency: "direct main"
     description:
