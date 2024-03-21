@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:core_utils/core_utils.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:global_chat/core/error/failures/failure.dart';
 import 'package:global_chat/core/formz_inputs/formz_inputs.dart';
 
 part 'sign_up_bloc.freezed.dart';

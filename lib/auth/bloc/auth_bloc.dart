@@ -1,12 +1,11 @@
 import 'dart:async';
 
+import 'package:auth_service/auth_service.dart';
 import 'package:bloc/bloc.dart';
+import 'package:core_utils/core_utils.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import 'package:global_chat/auth/models/user/user_model.dart';
-import 'package:global_chat/core/error/failures/failure.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';

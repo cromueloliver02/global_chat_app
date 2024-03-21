@@ -1,1 +1,1 @@
-export 'package:global_chat/core/models/plm_error/plm_error_model.dart';
+export 'package:global_chat/core/models/error_details/error_details_model.dart';
