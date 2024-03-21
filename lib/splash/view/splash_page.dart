@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:global_chat/core/res/app_images.dart';
@@ -36,7 +37,20 @@ class _SplashViewState extends State<SplashView> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(142),
-          child: Image.asset(AppImages.splash),
+          child: Stack(
+            children: [
+              Center(child: Image.asset(AppImages.splash)),
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 300),
+                  child: SpinKitFadingCircle(
+                    color: Colors.deepPurple,
+                    size: 50,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
