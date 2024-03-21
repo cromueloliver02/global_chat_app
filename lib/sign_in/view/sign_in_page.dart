@@ -8,6 +8,7 @@ import 'package:global_chat/core/models/models.dart';
 import 'package:global_chat/core/utils/error_utils.dart';
 import 'package:global_chat/core/utils/helpers.dart';
 import 'package:global_chat/core/widgets/widgets.dart';
+import 'package:global_chat/injection/injection_container.dart';
 import 'package:global_chat/sign_in/bloc/sign_in_bloc.dart';
 import 'package:global_chat/sign_in/widgets/sign_in_form.dart';
 import 'package:global_chat/sign_up/view/sign_up_page.dart';
@@ -31,7 +32,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SignInBloc>(
-      create: (ctx) => SignInBloc(authRepository: ctx.read<AuthRepository>()),
+      create: (ctx) => SignInBloc(authRepository: sl<AuthRepository>()),
       child: BlocListener<SignInBloc, SignInState>(
         listenWhen: (prev, curr) =>
             prev.status != curr.status && curr.status.isFailure,

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:global_chat/auth/bloc/auth_bloc.dart';
+import 'package:global_chat/home/view/home_page.dart';
+import 'package:global_chat/injection/injection_container.dart';
+import 'package:global_chat/router/go_router_refresh_stream.dart';
 import 'package:global_chat/sign_in/view/sign_in_page.dart';
 import 'package:global_chat/sign_up/view/sign_up_page.dart';
 import 'package:global_chat/splash/view/splash_page.dart';
@@ -16,6 +20,18 @@ class AppRouter {
     navigatorKey: _rootNavigatorKey,
     initialLocation: SplashPage.routePath,
     // debugLogDiagnostics: true,
+    refreshListenable: GoRouterRefreshStream(sl<AuthBloc>().stream),
+    redirect: (BuildContext ctx, GoRouterState state) {
+      final bool isSignedIn = ctx.read<AuthBloc>().state.status.isAuthenticated;
+      final bool isSigningIn =
+          state.matchedLocation.contains(SignInPage.routePath);
+
+      if (!isSignedIn) return isSigningIn ? null : SignInPage.routePath;
+
+      if (isSigningIn) return SplashPage.routePath;
+
+      return null;
+    },
     routes: [
       GoRoute(
         name: SplashPage.routeName,
@@ -42,6 +58,14 @@ class AppRouter {
             ),
           ),
         ],
+      ),
+      GoRoute(
+        name: HomePage.routeName,
+        path: HomePage.routePath,
+        pageBuilder: (ctx, state) => _pageBuilder(
+          pageKey: state.pageKey,
+          page: const HomePage(),
+        ),
       ),
     ],
   );
