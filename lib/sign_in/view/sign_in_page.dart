@@ -55,61 +55,57 @@ class SignInView extends StatelessWidget {
         body: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.all(20),
-          constraints: const BoxConstraints.expand(),
-          child: Center(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 550),
-                  child: SizedBox(
-                    width: 100,
-                    child: Image.asset(AppImages.splash),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 550),
+                child: SizedBox(
+                  width: 100,
+                  child: Image.asset(AppImages.splash),
+                ),
+              ),
+              ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                children: [
+                  const Text(
+                    'Chat with anyone around the world.',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 32,
+                    ),
                   ),
-                ),
-                ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  children: [
-                    const Text(
-                      'Chat with anyone around the world.',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 32,
+                  const SizedBox(height: 10),
+                  Column(
+                    children: [
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Sign in to your account',
+                          style: TextStyle(fontSize: 14),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Column(
-                      children: [
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Sign in to your account',
-                            style: TextStyle(fontSize: 14),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: BlocBuilder<SignInBloc, SignInState>(
+                          buildWhen: (prev, curr) => prev.status != curr.status,
+                          builder: (ctx, state) => GCATextButton(
+                            label: 'Sign up instead?',
+                            onPressed: !state.status.isInProgressOrSuccess
+                                ? () => context.goNamed(SignUpPage.routeName)
+                                : null,
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: BlocBuilder<SignInBloc, SignInState>(
-                            buildWhen: (prev, curr) =>
-                                prev.status != curr.status,
-                            builder: (ctx, state) => GCATextButton(
-                              label: 'Sign up instead?',
-                              onPressed: !state.status.isInProgressOrSuccess
-                                  ? () => context.goNamed(SignUpPage.routeName)
-                                  : null,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    const SignInForm(),
-                  ],
-                ),
-              ],
-            ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  const SignInForm(),
+                ],
+              ),
+            ],
           ),
         ),
       ),

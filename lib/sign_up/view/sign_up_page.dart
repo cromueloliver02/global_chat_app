@@ -2,6 +2,7 @@ import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:global_chat/core/res/app_images.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:global_chat/core/models/models.dart';
@@ -54,48 +55,57 @@ class SignUpView extends StatelessWidget {
         body: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.all(20),
-          constraints: const BoxConstraints.expand(),
-          child: Center(
-            child: ListView(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              children: [
-                const Text(
-                  'Chat with anyone around the world.',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 32,
-                  ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 625),
+                child: SizedBox(
+                  width: 100,
+                  child: Image.asset(AppImages.splash),
                 ),
-                const SizedBox(height: 10),
-                Column(
-                  children: [
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Sign up for an account',
-                        style: TextStyle(fontSize: 14),
-                      ),
+              ),
+              ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                children: [
+                  const Text(
+                    'Chat with anyone around the world.',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 32,
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: BlocBuilder<SignUpBloc, SignUpState>(
-                        buildWhen: (prev, curr) => prev.status != curr.status,
-                        builder: (ctx, state) => GCATextButton(
-                          label: 'Already have an account?',
-                          onPressed: !state.status.isInProgressOrSuccess
-                              ? () => context.goNamed(SignInPage.routeName)
-                              : null,
+                  ),
+                  const SizedBox(height: 10),
+                  Column(
+                    children: [
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Sign up for an account',
+                          style: TextStyle(fontSize: 14),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                const SignUpForm(),
-              ],
-            ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: BlocBuilder<SignUpBloc, SignUpState>(
+                          buildWhen: (prev, curr) => prev.status != curr.status,
+                          builder: (ctx, state) => GCATextButton(
+                            label: 'Already have an account?',
+                            onPressed: !state.status.isInProgressOrSuccess
+                                ? () => context.goNamed(SignInPage.routeName)
+                                : null,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  const SignUpForm(),
+                ],
+              ),
+            ],
           ),
         ),
       ),
