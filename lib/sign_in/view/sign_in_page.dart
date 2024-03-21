@@ -5,6 +5,7 @@ import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:global_chat/core/models/models.dart';
+import 'package:global_chat/core/res/app_images.dart';
 import 'package:global_chat/core/utils/error_utils.dart';
 import 'package:global_chat/core/utils/helpers.dart';
 import 'package:global_chat/core/widgets/widgets.dart';
@@ -56,44 +57,57 @@ class SignInView extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           constraints: const BoxConstraints.expand(),
           child: Center(
-            child: ListView(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Stack(
+              alignment: Alignment.center,
               children: [
-                const Text(
-                  'Chat with anyone around the world.',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 32,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 550),
+                  child: SizedBox(
+                    width: 100,
+                    child: Image.asset(AppImages.splash),
                   ),
                 ),
-                const SizedBox(height: 10),
-                Column(
+                ListView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   children: [
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Sign in to your account',
-                        style: TextStyle(fontSize: 14),
+                    const Text(
+                      'Chat with anyone around the world.',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 32,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: BlocBuilder<SignInBloc, SignInState>(
-                        buildWhen: (prev, curr) => prev.status != curr.status,
-                        builder: (ctx, state) => GCATextButton(
-                          label: 'Sign up instead?',
-                          onPressed: !state.status.isInProgressOrSuccess
-                              ? () => context.goNamed(SignUpPage.routeName)
-                              : null,
+                    const SizedBox(height: 10),
+                    Column(
+                      children: [
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Sign in to your account',
+                            style: TextStyle(fontSize: 14),
+                          ),
                         ),
-                      ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: BlocBuilder<SignInBloc, SignInState>(
+                            buildWhen: (prev, curr) =>
+                                prev.status != curr.status,
+                            builder: (ctx, state) => GCATextButton(
+                              label: 'Sign up instead?',
+                              onPressed: !state.status.isInProgressOrSuccess
+                                  ? () => context.goNamed(SignUpPage.routeName)
+                                  : null,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                    const SizedBox(height: 10),
+                    const SignInForm(),
                   ],
                 ),
-                const SizedBox(height: 10),
-                const SignInForm(),
               ],
             ),
           ),
