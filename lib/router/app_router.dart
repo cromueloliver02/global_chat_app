@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:global_chat/auth/bloc/auth_bloc.dart';
 import 'package:global_chat/home/view/home_page.dart';
 import 'package:global_chat/injection/injection_container.dart';
+import 'package:global_chat/profile/view/profile_page.dart';
 import 'package:global_chat/router/go_router_refresh_stream.dart';
 import 'package:global_chat/sign_in/view/sign_in_page.dart';
 import 'package:global_chat/sign_up/view/sign_up_page.dart';
@@ -66,6 +67,16 @@ class AppRouter {
           pageKey: state.pageKey,
           page: const HomePage(),
         ),
+        routes: [
+          GoRoute(
+            name: ProfilePage.routeName,
+            path: ProfilePage.routePath,
+            pageBuilder: (ctx, state) => _pageBuilder(
+              pageKey: state.pageKey,
+              page: const ProfilePage(),
+            ),
+          ),
+        ],
       ),
     ],
   );
