@@ -12,8 +12,8 @@ class GlobalChatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthBloc>(
-      create: (ctx) => sl<AuthBloc>(),
+    return BlocProvider<AuthBloc>.value(
+      value: sl<AuthBloc>(),
       child: const GlobalChatAppView(),
     );
   }
