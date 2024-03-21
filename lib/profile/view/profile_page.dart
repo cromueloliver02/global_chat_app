@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:profile_repository/profile_repository.dart';
+import 'package:profile_service/profile_service.dart';
 
+import 'package:global_chat/injection/injection_container.dart';
+import 'package:global_chat/profile/bloc/profile_bloc.dart';
 import 'package:global_chat/profile/widgets/profile_app_bar.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -10,7 +15,17 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ProfileView();
+    return RepositoryProvider<ProfileRepository>(
+      create: (ctx) => ProfileRepositoryImpl(
+        profileService: sl<ProfileService>(),
+      ),
+      child: BlocProvider(
+        create: (ctx) => ProfileBloc(
+          profileRepository: ctx.read<ProfileRepository>(),
+        ),
+        child: const ProfileView(),
+      ),
+    );
   }
 }
 
