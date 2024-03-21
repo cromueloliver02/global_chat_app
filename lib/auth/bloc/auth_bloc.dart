@@ -15,6 +15,7 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
+  final Completer<void> completer = Completer<void>();
 
   AuthBloc({
     required AuthRepository authRepository,
@@ -38,11 +39,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (Failure failure) {
           debugPrint(failure.toString());
           emit(AuthState.unauthenticated(failure));
+          if (!completer.isCompleted) completer.complete();
         },
         (User? user) {
           if (user != null) emit(AuthState.authenticated(user));
 
           if (user == null) emit(AuthState.unauthenticated());
+
+          if (!completer.isCompleted) completer.complete();
         },
       ),
     );

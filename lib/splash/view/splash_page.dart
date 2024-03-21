@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:global_chat/core/res/app_images.dart';
 import 'package:global_chat/home/view/home_page.dart';
-import 'package:go_router/go_router.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});

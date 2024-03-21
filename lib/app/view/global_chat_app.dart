@@ -27,27 +27,36 @@ class GlobalChatAppView extends StatefulWidget {
 }
 
 class _GlobalChatAppViewState extends State<GlobalChatAppView> {
-  void _authListener(BuildContext ctx, AuthState state) {
-    if (state.subscribeStatus.isSuccess) FlutterNativeSplash.remove();
+  Future<void> _initializeApp() async {
+    try {
+      final AuthBloc authBloc = context.read<AuthBloc>();
+
+      authBloc.add(const AuthStateChangesSubscribed());
+
+      // to let the splash screen hide the unwanted transitions of the
+      // the sign in page
+      await authBloc.completer.future;
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      FlutterNativeSplash.remove();
+    } catch (error) {
+      // proceed to onboarding/login page anyway
+      FlutterNativeSplash.remove();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-      listenWhen: (prev, curr) => prev.subscribeStatus != curr.subscribeStatus,
-      listener: _authListener,
-      child: MaterialApp.router(
-        title: 'Global Chat App',
-        theme: AppTheme.light,
-        debugShowCheckedModeBanner: false,
-        routerConfig: AppRouter.routerConfig,
-      ),
+    return MaterialApp.router(
+      title: 'Global Chat App',
+      theme: AppTheme.light,
+      debugShowCheckedModeBanner: false,
+      routerConfig: AppRouter.routerConfig,
     );
   }
 
   @override
   void initState() {
     super.initState();
-    context.read<AuthBloc>().add(const AuthStateChangesSubscribed());
+    _initializeApp();
   }
 }
