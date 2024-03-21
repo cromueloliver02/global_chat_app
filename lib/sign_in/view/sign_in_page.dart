@@ -1,4 +1,8 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:global_chat/sign_in/bloc/sign_in_bloc.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -8,7 +12,10 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SignInView();
+    return BlocProvider<SignInBloc>(
+      create: (ctx) => SignInBloc(authRepository: ctx.read<AuthRepository>()),
+      child: const SignInView(),
+    );
   }
 }
 
