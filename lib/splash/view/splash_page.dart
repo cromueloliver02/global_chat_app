@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:global_chat/core/res/app_images.dart';
+
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
@@ -17,9 +19,12 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text('SPLASH PAGE'),
+        child: Padding(
+          padding: const EdgeInsets.all(120),
+          child: Image.asset(AppImages.splash),
+        ),
       ),
     );
   }
