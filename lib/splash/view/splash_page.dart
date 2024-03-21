@@ -34,23 +34,20 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(142),
-          child: Stack(
-            children: [
-              Center(child: Image.asset(AppImages.splash)),
-              const Center(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 300),
-                  child: SpinKitFadingCircle(
-                    color: Colors.deepPurple,
-                    size: 50,
-                  ),
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(142),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(AppImages.splash),
+            const Padding(
+              padding: EdgeInsets.only(top: 300),
+              child: SpinKitFadingCircle(
+                color: Colors.deepPurple,
+                size: 50,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
