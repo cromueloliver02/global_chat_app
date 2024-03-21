@@ -1,4 +1,4 @@
-name: core_utils
+name: auth_firebase_service
 description: 'A new Flutter package project.'
 version: 0.0.1
 homepage: null
@@ -9,19 +9,19 @@ environment:
    flutter: '>=1.17.0'
 
 dependencies:
+   auth_service:
+      path: ../auth_service
    cloud_firestore: ^4.15.9
-   equatable: ^2.0.5
+   core_utils:
+      path: ../core_utils
+   firebase_auth: ^4.17.9
    flutter:
       sdk: flutter
-   fpdart: ^1.1.0
-   freezed_annotation: ^2.4.1
 
 dev_dependencies:
-   build_runner: ^2.4.8
-   flutter_lints: ^2.0.0
+   flutter_lints: ^3.0.0
    flutter_test:
       sdk: flutter
-   freezed: ^2.4.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
