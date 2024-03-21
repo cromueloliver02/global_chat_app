@@ -3,7 +3,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:profile_service/profile_service.dart';
 
 abstract interface class ProfileRepository {
-  FutureEither<void> getProfile(String uid);
+  FutureEither<Profile> getProfile();
 }
 
 class ProfileRepositoryImpl implements ProfileRepository {
@@ -14,10 +14,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }) : _profileService = profileService;
 
   @override
-  FutureEither<void> getProfile(String uid) async {
+  FutureEither<Profile> getProfile() async {
     try {
-      await _profileService.getProfile(uid);
-      return const Right(null);
+      final Profile profile = await _profileService.getProfile();
+      return Right(profile);
     } on ServerException catch (exception) {
       return Left(ServerFailure(exception));
     } on NetworkException catch (exception) {

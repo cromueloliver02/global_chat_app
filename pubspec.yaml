@@ -55,6 +55,8 @@ dependencies:
    iconly: ^1.0.1
    json_annotation: ^4.8.1
    keyboard_dismisser: ^3.0.0
+   profile_firebase_service:
+      path: packages/profile_firebase_service
    profile_repository:
       path: packages/profile_repository
    profile_service:
