@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ProfileState {
   Profile? get profile => throw _privateConstructorUsedError;
-  FormzSubmissionStatus get status => throw _privateConstructorUsedError;
+  LoadProfileStatus get loadStatus => throw _privateConstructorUsedError;
   Failure? get failure => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +31,7 @@ abstract class $ProfileStateCopyWith<$Res> {
           ProfileState value, $Res Function(ProfileState) then) =
       _$ProfileStateCopyWithImpl<$Res, ProfileState>;
   @useResult
-  $Res call({Profile? profile, FormzSubmissionStatus status, Failure? failure});
+  $Res call({Profile? profile, LoadProfileStatus loadStatus, Failure? failure});
 
   $ProfileCopyWith<$Res>? get profile;
 }
@@ -50,7 +50,7 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
   @override
   $Res call({
     Object? profile = freezed,
-    Object? status = null,
+    Object? loadStatus = null,
     Object? failure = freezed,
   }) {
     return _then(_value.copyWith(
@@ -58,10 +58,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as Profile?,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormzSubmissionStatus,
+      loadStatus: null == loadStatus
+          ? _value.loadStatus
+          : loadStatus // ignore: cast_nullable_to_non_nullable
+              as LoadProfileStatus,
       failure: freezed == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -90,7 +90,7 @@ abstract class _$$ProfileStateImplCopyWith<$Res>
       __$$ProfileStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Profile? profile, FormzSubmissionStatus status, Failure? failure});
+  $Res call({Profile? profile, LoadProfileStatus loadStatus, Failure? failure});
 
   @override
   $ProfileCopyWith<$Res>? get profile;
@@ -108,7 +108,7 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? profile = freezed,
-    Object? status = null,
+    Object? loadStatus = null,
     Object? failure = freezed,
   }) {
     return _then(_$ProfileStateImpl(
@@ -116,10 +116,10 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as Profile?,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormzSubmissionStatus,
+      loadStatus: null == loadStatus
+          ? _value.loadStatus
+          : loadStatus // ignore: cast_nullable_to_non_nullable
+              as LoadProfileStatus,
       failure: freezed == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -130,10 +130,10 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ProfileStateImpl extends _ProfileState {
+class _$ProfileStateImpl extends _ProfileState with DiagnosticableTreeMixin {
   const _$ProfileStateImpl(
       {this.profile = null,
-      this.status = FormzSubmissionStatus.initial,
+      this.loadStatus = LoadProfileStatus.initial,
       this.failure = null})
       : super._();
 
@@ -142,14 +142,24 @@ class _$ProfileStateImpl extends _ProfileState {
   final Profile? profile;
   @override
   @JsonKey()
-  final FormzSubmissionStatus status;
+  final LoadProfileStatus loadStatus;
   @override
   @JsonKey()
   final Failure? failure;
 
   @override
-  String toString() {
-    return 'ProfileState(profile: $profile, status: $status, failure: $failure)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileState(profile: $profile, loadStatus: $loadStatus, failure: $failure)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ProfileState'))
+      ..add(DiagnosticsProperty('profile', profile))
+      ..add(DiagnosticsProperty('loadStatus', loadStatus))
+      ..add(DiagnosticsProperty('failure', failure));
   }
 
   @override
@@ -158,12 +168,13 @@ class _$ProfileStateImpl extends _ProfileState {
         (other.runtimeType == runtimeType &&
             other is _$ProfileStateImpl &&
             (identical(other.profile, profile) || other.profile == profile) &&
-            (identical(other.status, status) || other.status == status) &&
+            (identical(other.loadStatus, loadStatus) ||
+                other.loadStatus == loadStatus) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, profile, status, failure);
+  int get hashCode => Object.hash(runtimeType, profile, loadStatus, failure);
 
   @JsonKey(ignore: true)
   @override
@@ -175,14 +186,14 @@ class _$ProfileStateImpl extends _ProfileState {
 abstract class _ProfileState extends ProfileState {
   const factory _ProfileState(
       {final Profile? profile,
-      final FormzSubmissionStatus status,
+      final LoadProfileStatus loadStatus,
       final Failure? failure}) = _$ProfileStateImpl;
   const _ProfileState._() : super._();
 
   @override
   Profile? get profile;
   @override
-  FormzSubmissionStatus get status;
+  LoadProfileStatus get loadStatus;
   @override
   Failure? get failure;
   @override

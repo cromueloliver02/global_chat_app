@@ -5,9 +5,11 @@ import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:get_it/get_it.dart';
 import 'package:profile_firebase_service/profile_firebase_service.dart';
+import 'package:profile_repository/profile_repository.dart';
 import 'package:profile_service/profile_service.dart';
 
 import 'package:global_chat/auth/bloc/auth_bloc.dart';
+import 'package:global_chat/profile/bloc/profile_bloc.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -39,9 +41,15 @@ void inject() {
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(authService: sl<AuthService>()),
   );
+  sl.registerLazySingleton<ProfileRepository>(
+    () => ProfileRepositoryImpl(profileService: sl<ProfileService>()),
+  );
 
   // blocs
   sl.registerLazySingleton<AuthBloc>(
     () => AuthBloc(authRepository: sl<AuthRepository>()),
+  );
+  sl.registerLazySingleton<ProfileBloc>(
+    () => ProfileBloc(profileRepository: sl<ProfileRepository>()),
   );
 }

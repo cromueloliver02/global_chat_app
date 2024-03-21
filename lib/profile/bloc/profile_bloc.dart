@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:core_utils/core_utils.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:formz/formz.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:profile_repository/profile_repository.dart';
@@ -26,21 +27,24 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     ProfileLoaded event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+    emit(state.copyWith(loadStatus: LoadProfileStatus.inProgress));
 
     final Either<Failure, void> either = await _profileRepository.getProfile();
+
+    // just to show the splash page
+    await Future.delayed(const Duration(seconds: 1));
 
     either.fold(
       (Failure failure) {
         debugPrint(failure.toString());
         emit(
           state.copyWith(
-            status: FormzSubmissionStatus.failure,
+            loadStatus: LoadProfileStatus.failure,
             failure: failure,
           ),
         );
       },
-      (_) => emit(state.copyWith(status: FormzSubmissionStatus.success)),
+      (_) => emit(state.copyWith(loadStatus: LoadProfileStatus.success)),
     );
   }
 }

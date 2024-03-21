@@ -20,7 +20,7 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Profile {
-  String get id => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get profileUrl => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $ProfileCopyWith<$Res> {
   factory $ProfileCopyWith(Profile value, $Res Function(Profile) then) =
       _$ProfileCopyWithImpl<$Res, Profile>;
   @useResult
-  $Res call({String id, String username, String email, String profileUrl});
+  $Res call({String uid, String username, String email, String profileUrl});
 }
 
 /// @nodoc
@@ -51,15 +51,15 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? uid = null,
     Object? username = null,
     Object? email = null,
     Object? profileUrl = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       username: null == username
           ? _value.username
@@ -84,7 +84,7 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       __$$ProfileImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String username, String email, String profileUrl});
+  $Res call({String uid, String username, String email, String profileUrl});
 }
 
 /// @nodoc
@@ -98,15 +98,15 @@ class __$$ProfileImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? uid = null,
     Object? username = null,
     Object? email = null,
     Object? profileUrl = null,
   }) {
     return _then(_$ProfileImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       username: null == username
           ? _value.username
@@ -128,7 +128,7 @@ class __$$ProfileImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProfileImpl extends _Profile with DiagnosticableTreeMixin {
   const _$ProfileImpl(
-      {required this.id,
+      {required this.uid,
       required this.username,
       required this.email,
       required this.profileUrl})
@@ -138,7 +138,7 @@ class _$ProfileImpl extends _Profile with DiagnosticableTreeMixin {
       _$$ProfileImplFromJson(json);
 
   @override
-  final String id;
+  final String uid;
   @override
   final String username;
   @override
@@ -148,7 +148,7 @@ class _$ProfileImpl extends _Profile with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Profile(id: $id, username: $username, email: $email, profileUrl: $profileUrl)';
+    return 'Profile(uid: $uid, username: $username, email: $email, profileUrl: $profileUrl)';
   }
 
   @override
@@ -156,7 +156,7 @@ class _$ProfileImpl extends _Profile with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Profile'))
-      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('uid', uid))
       ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('profileUrl', profileUrl));
@@ -167,7 +167,7 @@ class _$ProfileImpl extends _Profile with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProfileImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
@@ -177,7 +177,8 @@ class _$ProfileImpl extends _Profile with DiagnosticableTreeMixin {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, username, email, profileUrl);
+  int get hashCode =>
+      Object.hash(runtimeType, uid, username, email, profileUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -195,7 +196,7 @@ class _$ProfileImpl extends _Profile with DiagnosticableTreeMixin {
 
 abstract class _Profile extends Profile {
   const factory _Profile(
-      {required final String id,
+      {required final String uid,
       required final String username,
       required final String email,
       required final String profileUrl}) = _$ProfileImpl;
@@ -204,7 +205,7 @@ abstract class _Profile extends Profile {
   factory _Profile.fromJson(Map<String, dynamic> json) = _$ProfileImpl.fromJson;
 
   @override
-  String get id;
+  String get uid;
   @override
   String get username;
   @override
