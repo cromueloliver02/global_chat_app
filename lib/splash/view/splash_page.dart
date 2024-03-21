@@ -35,7 +35,7 @@ class _SplashViewState extends State<SplashView> {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(120),
+          padding: const EdgeInsets.all(142),
           child: Image.asset(AppImages.splash),
         ),
       ),
