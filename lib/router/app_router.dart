@@ -7,6 +7,7 @@ import 'package:global_chat/home/view/home_page.dart';
 import 'package:global_chat/injection/injection_container.dart';
 import 'package:global_chat/profile/view/profile_page.dart';
 import 'package:global_chat/router/go_router_refresh_stream.dart';
+import 'package:global_chat/router/slide_page_transition.dart';
 import 'package:global_chat/sign_in/view/sign_in_page.dart';
 import 'package:global_chat/sign_up/view/sign_up_page.dart';
 import 'package:global_chat/splash/view/splash_page.dart';
@@ -86,12 +87,8 @@ class AppRouter {
     required Widget page,
     List<BlocProvider>? providers,
   }) {
-    return CustomTransitionPage(
+    return SlidePageTransition(
       key: pageKey,
-      transitionsBuilder: (_, anim, __, child) => FadeTransition(
-        opacity: anim,
-        child: child,
-      ),
       child: providers != null
           ? MultiBlocProvider(
               providers: providers,
