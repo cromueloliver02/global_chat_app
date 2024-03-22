@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:global_chat/auth/bloc/auth_bloc.dart';
+import 'package:global_chat/chat_room/view/chat_room_page.dart';
 import 'package:global_chat/home/view/home_page.dart';
 import 'package:global_chat/injection/injection_container.dart';
 import 'package:global_chat/profile/view/profile_page.dart';
@@ -69,6 +70,23 @@ class AppRouter {
           page: const HomePage(),
         ),
         routes: [
+          GoRoute(
+            name: ChatRoomPage.routeName,
+            path: ChatRoomPage.routePath,
+            pageBuilder: (ctx, state) {
+              final String chatRoomId =
+                  state.pathParameters[ChatRoomPage.chatRoomIdKey]!;
+              final String chatRoomName =
+                  state.uri.queryParameters[ChatRoomPage.chatRoomNameKey]!;
+              return _pageBuilder(
+                pageKey: state.pageKey,
+                page: ChatRoomPage(
+                  chatRoomId: chatRoomId,
+                  chatRoomName: chatRoomName,
+                ),
+              );
+            },
+          ),
           GoRoute(
             name: ProfilePage.routeName,
             path: ProfilePage.routePath,
