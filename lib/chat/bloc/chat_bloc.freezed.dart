@@ -16,8 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ChatState {
-  ChatSendMessageStatus get status => throw _privateConstructorUsedError;
-  Failure? get failure => throw _privateConstructorUsedError;
+  FormzSubmissionStatus get status => throw _privateConstructorUsedError;
+  Failure? get failure => throw _privateConstructorUsedError; // form
+  MessageInput get messageInput => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChatStateCopyWith<ChatState> get copyWith =>
@@ -29,7 +30,10 @@ abstract class $ChatStateCopyWith<$Res> {
   factory $ChatStateCopyWith(ChatState value, $Res Function(ChatState) then) =
       _$ChatStateCopyWithImpl<$Res, ChatState>;
   @useResult
-  $Res call({ChatSendMessageStatus status, Failure? failure});
+  $Res call(
+      {FormzSubmissionStatus status,
+      Failure? failure,
+      MessageInput messageInput});
 }
 
 /// @nodoc
@@ -47,16 +51,21 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
   $Res call({
     Object? status = null,
     Object? failure = freezed,
+    Object? messageInput = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ChatSendMessageStatus,
+              as FormzSubmissionStatus,
       failure: freezed == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      messageInput: null == messageInput
+          ? _value.messageInput
+          : messageInput // ignore: cast_nullable_to_non_nullable
+              as MessageInput,
     ) as $Val);
   }
 }
@@ -69,7 +78,10 @@ abstract class _$$ChatStateImplCopyWith<$Res>
       __$$ChatStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ChatSendMessageStatus status, Failure? failure});
+  $Res call(
+      {FormzSubmissionStatus status,
+      Failure? failure,
+      MessageInput messageInput});
 }
 
 /// @nodoc
@@ -85,16 +97,21 @@ class __$$ChatStateImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? failure = freezed,
+    Object? messageInput = null,
   }) {
     return _then(_$ChatStateImpl(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ChatSendMessageStatus,
+              as FormzSubmissionStatus,
       failure: freezed == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      messageInput: null == messageInput
+          ? _value.messageInput
+          : messageInput // ignore: cast_nullable_to_non_nullable
+              as MessageInput,
     ));
   }
 }
@@ -103,19 +120,25 @@ class __$$ChatStateImplCopyWithImpl<$Res>
 
 class _$ChatStateImpl extends _ChatState with DiagnosticableTreeMixin {
   const _$ChatStateImpl(
-      {this.status = ChatSendMessageStatus.initial, this.failure = null})
+      {this.status = FormzSubmissionStatus.initial,
+      this.failure = null,
+      this.messageInput = const MessageInput.pure()})
       : super._();
 
   @override
   @JsonKey()
-  final ChatSendMessageStatus status;
+  final FormzSubmissionStatus status;
   @override
   @JsonKey()
   final Failure? failure;
+// form
+  @override
+  @JsonKey()
+  final MessageInput messageInput;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ChatState(status: $status, failure: $failure)';
+    return 'ChatState(status: $status, failure: $failure, messageInput: $messageInput)';
   }
 
   @override
@@ -124,7 +147,8 @@ class _$ChatStateImpl extends _ChatState with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'ChatState'))
       ..add(DiagnosticsProperty('status', status))
-      ..add(DiagnosticsProperty('failure', failure));
+      ..add(DiagnosticsProperty('failure', failure))
+      ..add(DiagnosticsProperty('messageInput', messageInput));
   }
 
   @override
@@ -133,11 +157,13 @@ class _$ChatStateImpl extends _ChatState with DiagnosticableTreeMixin {
         (other.runtimeType == runtimeType &&
             other is _$ChatStateImpl &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.failure, failure) || other.failure == failure));
+            (identical(other.failure, failure) || other.failure == failure) &&
+            (identical(other.messageInput, messageInput) ||
+                other.messageInput == messageInput));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, failure);
+  int get hashCode => Object.hash(runtimeType, status, failure, messageInput);
 
   @JsonKey(ignore: true)
   @override
@@ -148,14 +174,17 @@ class _$ChatStateImpl extends _ChatState with DiagnosticableTreeMixin {
 
 abstract class _ChatState extends ChatState {
   const factory _ChatState(
-      {final ChatSendMessageStatus status,
-      final Failure? failure}) = _$ChatStateImpl;
+      {final FormzSubmissionStatus status,
+      final Failure? failure,
+      final MessageInput messageInput}) = _$ChatStateImpl;
   const _ChatState._() : super._();
 
   @override
-  ChatSendMessageStatus get status;
+  FormzSubmissionStatus get status;
   @override
   Failure? get failure;
+  @override // form
+  MessageInput get messageInput;
   @override
   @JsonKey(ignore: true)
   _$$ChatStateImplCopyWith<_$ChatStateImpl> get copyWith =>
