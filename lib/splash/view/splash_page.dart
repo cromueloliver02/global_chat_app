@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:global_chat/core/models/models.dart';
+import 'package:global_chat/chat_room/bloc/chat_room_bloc.dart';
 import 'package:global_chat/core/res/app_images.dart';
-import 'package:global_chat/core/utils/error_utils.dart';
-import 'package:global_chat/core/utils/helpers.dart';
 import 'package:global_chat/home/view/home_page.dart';
 import 'package:global_chat/injection/injection_container.dart';
 import 'package:global_chat/profile/bloc/profile_bloc.dart';
@@ -17,28 +15,14 @@ class SplashPage extends StatelessWidget {
   static const String routeName = 'splash';
   static const String routePath = '/$routeName';
 
-  void _profileListener(BuildContext ctx, ProfileState state) {
-    if (state.loadStatus.isSuccess) ctx.goNamed(HomePage.routeName);
-
-    if (state.loadStatus.isFailure) {
-      final ErrorDetails error = ErrorUtils.generateError(state.failure!);
-      showErrorDialog(
-        ctx,
-        title: error.title,
-        message: error.message,
-        failure: error.failure,
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ProfileBloc>.value(
-      value: sl<ProfileBloc>(),
-      child: BlocListener<ProfileBloc, ProfileState>(
-        listener: _profileListener,
-        child: const SplashView(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProfileBloc>.value(value: sl<ProfileBloc>()),
+        BlocProvider<ChatRoomBloc>.value(value: sl<ChatRoomBloc>()),
+      ],
+      child: const SplashView(),
     );
   }
 }
@@ -51,6 +35,27 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  Future<void> _initializeApp() async {
+    try {
+      final ProfileBloc profileBloc = context.read<ProfileBloc>();
+      final ChatRoomBloc chatRoomBloc = context.read<ChatRoomBloc>();
+      final GoRouter router = GoRouter.of(context);
+
+      profileBloc.add(const ProfileLoaded());
+      chatRoomBloc.add(const ChatRoomsLoaded());
+
+      await Future.wait<void>([
+        profileBloc.completer.future,
+        chatRoomBloc.completer.future,
+      ]);
+
+      router.goNamed(HomePage.routeName);
+    } catch (error) {
+      // implement proper error handler
+      debugPrint(error.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +81,6 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    context.read<ProfileBloc>().add(const ProfileLoaded());
+    _initializeApp();
   }
 }

@@ -15,6 +15,7 @@ part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileRepository _profileRepository;
+  final Completer<void> completer = Completer<void>();
 
   ProfileBloc({
     required ProfileRepository profileRepository,
@@ -38,19 +39,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     either.fold(
       (Failure failure) {
         debugPrint(failure.toString());
-        emit(
-          state.copyWith(
-            loadStatus: LoadProfileStatus.failure,
-            failure: failure,
-          ),
-        );
+        emit(ProfileState.failure(failure));
+        if (!completer.isCompleted) completer.complete();
       },
-      (Profile profile) => emit(
-        state.copyWith(
-          profile: profile,
-          loadStatus: LoadProfileStatus.success,
-        ),
-      ),
+      (Profile profile) {
+        emit(ProfileState.success(profile));
+        if (!completer.isCompleted) completer.complete();
+      },
     );
   }
 }

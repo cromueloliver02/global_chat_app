@@ -15,6 +15,7 @@ part 'chat_room_state.dart';
 
 class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   final ChatRoomRepository _chatRoomRepository;
+  final Completer<void> completer = Completer<void>();
 
   ChatRoomBloc({
     required ChatRoomRepository chatRoomRepository,
@@ -36,8 +37,12 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
       (Failure failure) {
         debugPrint(failure.toString());
         emit(ChatRoomState.failure(failure));
+        if (!completer.isCompleted) completer.complete();
       },
-      (List<ChatRoom> chatRooms) => emit(ChatRoomState.success(chatRooms)),
+      (List<ChatRoom> chatRooms) {
+        emit(ChatRoomState.success(chatRooms));
+        if (!completer.isCompleted) completer.complete();
+      },
     );
   }
 }
