@@ -74,13 +74,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
         body: Column(
           children: [
             const Expanded(child: SizedBox()), // implement chat bubbles
-            Container(
-              color: Colors.grey.shade300,
-              padding: const EdgeInsets.all(20),
-              child: SafeArea(
-                child: ChatTextField(chatRoomId: widget.chatRoomId),
-              ),
-            ),
+            ChatTextField(chatRoomId: widget.chatRoomId),
           ],
         ),
       ),

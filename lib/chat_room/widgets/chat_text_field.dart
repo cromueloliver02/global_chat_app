@@ -41,36 +41,43 @@ class _ChatTextFieldState extends State<ChatTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ChatBloc, ChatState>(
-      listenWhen: (prev, curr) => prev.status != curr.status,
-      listener: _chatListener,
-      child: Row(
-        children: [
-          Expanded(
-            child: BlocBuilder<ChatBloc, ChatState>(
-              buildWhen: (prev, curr) => prev.messageInput != curr.messageInput,
-              builder: (ctx, state) => GCATextField(
-                controller: _controller,
-                enableFeedback: false,
-                hintText: 'Message',
-                filled: true,
-                fillColor: Colors.grey.shade100,
-                validator: (v) => state.messageInput.validator(v)?.text(),
-                onChanged: (v) =>
-                    ctx.read<ChatBloc>().add(ChatMessageChanged(v)),
+    return Container(
+      color: Colors.grey.shade300,
+      padding: const EdgeInsets.all(20),
+      child: SafeArea(
+        child: BlocListener<ChatBloc, ChatState>(
+          listenWhen: (prev, curr) => prev.status != curr.status,
+          listener: _chatListener,
+          child: Row(
+            children: [
+              Expanded(
+                child: BlocBuilder<ChatBloc, ChatState>(
+                  buildWhen: (prev, curr) =>
+                      prev.messageInput != curr.messageInput,
+                  builder: (ctx, state) => GCATextField(
+                    controller: _controller,
+                    enableFeedback: false,
+                    hintText: 'Message',
+                    filled: true,
+                    fillColor: Colors.grey.shade100,
+                    validator: (v) => state.messageInput.validator(v)?.text(),
+                    onChanged: (v) =>
+                        ctx.read<ChatBloc>().add(ChatMessageChanged(v)),
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(width: 10),
+              IconButton(
+                onPressed: () => _sendMessage(context),
+                icon: const Icon(
+                  IconlyBold.send,
+                  color: Colors.deepPurple,
+                  size: 30,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 10),
-          IconButton(
-            onPressed: () => _sendMessage(context),
-            icon: const Icon(
-              IconlyBold.send,
-              color: Colors.deepPurple,
-              size: 30,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
