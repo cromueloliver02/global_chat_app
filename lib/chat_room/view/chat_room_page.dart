@@ -1,8 +1,13 @@
+import 'package:chat_repository/chat_repository.dart';
+import 'package:chat_service/chat_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
+import 'package:global_chat/chat_list/bloc/chat_list_bloc.dart';
 import 'package:global_chat/chat_room/widgets/char_room_app_bar.dart';
 import 'package:global_chat/core/widgets/widgets.dart';
+import 'package:global_chat/injection/injection_container.dart';
 
 class ChatRoomPage extends StatelessWidget {
   final String chatRoomId;
@@ -21,11 +26,19 @@ class ChatRoomPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChatRoomView(chatRoomId: chatRoomId, chatRoomName: chatRoomName);
+    return RepositoryProvider<ChatRepository>(
+      create: (ctx) => ChatRepositoryImpl(chatService: sl<ChatService>()),
+      child: BlocProvider<ChatListBloc>(
+        create: (ctx) => ChatListBloc(
+          chatRepository: ctx.read<ChatRepository>(),
+        ),
+        child: ChatRoomView(chatRoomId: chatRoomId, chatRoomName: chatRoomName),
+      ),
+    );
   }
 }
 
-class ChatRoomView extends StatelessWidget {
+class ChatRoomView extends StatefulWidget {
   final String chatRoomId;
   final String chatRoomName;
 
@@ -36,12 +49,17 @@ class ChatRoomView extends StatelessWidget {
   });
 
   @override
+  State<ChatRoomView> createState() => _ChatRoomViewState();
+}
+
+class _ChatRoomViewState extends State<ChatRoomView> {
+  @override
   Widget build(BuildContext context) {
     return GCAKeyboardDismisser(
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: ChatRoomAppBar(chatRoomName: chatRoomName),
+          child: ChatRoomAppBar(chatRoomName: widget.chatRoomName),
         ),
         body: Column(
           children: [
@@ -74,5 +92,11 @@ class ChatRoomView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ChatListBloc>().add(ChatListLoaded(widget.chatRoomId));
   }
 }

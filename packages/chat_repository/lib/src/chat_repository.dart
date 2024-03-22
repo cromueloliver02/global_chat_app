@@ -8,10 +8,10 @@ abstract interface class ChatRepository {
   FutureEither<void> sendMessage(Message message);
 }
 
-class ProfileRepositoryImpl implements ChatRepository {
+class ChatRepositoryImpl implements ChatRepository {
   final ChatService _chatService;
 
-  const ProfileRepositoryImpl({
+  const ChatRepositoryImpl({
     required ChatService chatService,
   }) : _chatService = chatService;
 
