@@ -1,0 +1,41 @@
+import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
+import 'package:chat_service/chat_service.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:global_chat/auth/bloc/auth_bloc.dart';
+import 'package:global_chat/chat_list/bloc/chat_list_bloc.dart';
+
+class ChatBubbleList extends StatelessWidget {
+  const ChatBubbleList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ChatListBloc, ChatListState>(
+      buildWhen: (prev, curr) => prev.chatBubbles != curr.chatBubbles,
+      builder: (ctx, chatState) => BlocBuilder<AuthBloc, AuthState>(
+        buildWhen: (prev, curr) => prev.user!.uid != curr.user!.uid,
+        builder: (ctx, authState) => ListView.builder(
+          reverse: true,
+          padding: const EdgeInsets.only(bottom: 20),
+          itemCount: chatState.chatBubbles.length,
+          itemBuilder: (ctx, idx) {
+            final ChatBubble chatBubble = chatState.chatBubbles[idx];
+            final bool isSender = authState.user!.uid == chatBubble.sender.uid;
+
+            return BubbleSpecialThree(
+              isSender: isSender,
+              text: chatBubble.message.text,
+              color: Colors.deepPurple,
+              tail: true,
+              textStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}

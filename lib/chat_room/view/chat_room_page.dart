@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:global_chat/chat/bloc/chat_bloc.dart';
 import 'package:global_chat/chat_list/bloc/chat_list_bloc.dart';
 import 'package:global_chat/chat_room/widgets/char_room_app_bar.dart';
+import 'package:global_chat/chat_room/widgets/chat_bubble_list.dart';
 import 'package:global_chat/chat_room/widgets/chat_text_field.dart';
 import 'package:global_chat/core/widgets/widgets.dart';
 import 'package:global_chat/injection/injection_container.dart';
@@ -73,7 +74,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
         ),
         body: Column(
           children: [
-            const Expanded(child: SizedBox()), // implement chat bubbles
+            const Expanded(child: ChatBubbleList()),
             ChatTextField(chatRoomId: widget.chatRoomId),
           ],
         ),

@@ -21,6 +21,7 @@ class ChatFirebaseService implements ChatService {
               .collection(kChatRoomsCollection)
               .doc(chatRoomId)
               .collection(kMessagesCollection)
+              .orderBy('timestamp', descending: true)
               .snapshots();
 
       await for (final messagesQuerySnap in messagesQuerySnapStream) {
