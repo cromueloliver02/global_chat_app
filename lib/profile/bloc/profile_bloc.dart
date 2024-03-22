@@ -29,7 +29,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     emit(state.copyWith(loadStatus: LoadProfileStatus.inProgress));
 
-    final Either<Failure, void> either = await _profileRepository.getProfile();
+    final Either<Failure, Profile> either =
+        await _profileRepository.getProfile();
 
     // just to show the splash page
     await Future.delayed(const Duration(seconds: 1));
@@ -44,7 +45,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           ),
         );
       },
-      (_) => emit(state.copyWith(loadStatus: LoadProfileStatus.success)),
+      (Profile profile) => emit(
+        state.copyWith(
+          profile: profile,
+          loadStatus: LoadProfileStatus.success,
+        ),
+      ),
     );
   }
 }
