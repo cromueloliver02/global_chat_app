@@ -28,7 +28,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     ProfileLoaded event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(state.copyWith(loadStatus: LoadProfileStatus.inProgress));
+    emit(ProfileState.inProgress());
 
     final Either<Failure, Profile> either =
         await _profileRepository.getProfile();

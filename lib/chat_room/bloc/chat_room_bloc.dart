@@ -28,7 +28,7 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
     ChatRoomsLoaded event,
     Emitter<ChatRoomState> emit,
   ) async {
-    emit(state.copyWith(loadStatus: LoadChatRoomsStatus.inProgress));
+    emit(ChatRoomState.inProgress());
 
     final Either<Failure, List<ChatRoom>> either =
         await _chatRoomRepository.loadChatRooms();
