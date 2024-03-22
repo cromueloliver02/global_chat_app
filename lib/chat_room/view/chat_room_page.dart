@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 
 import 'package:global_chat/chat_room/widgets/char_room_app_bar.dart';
+import 'package:global_chat/core/widgets/widgets.dart';
 
 class ChatRoomPage extends StatelessWidget {
   final String chatRoomId;
@@ -35,13 +37,41 @@ class ChatRoomView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: ChatRoomAppBar(chatRoomName: chatRoomName),
-      ),
-      body: const Center(
-        child: Text('CHAT ROOM PAGE'),
+    return GCAKeyboardDismisser(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: ChatRoomAppBar(chatRoomName: chatRoomName),
+        ),
+        body: Column(
+          children: [
+            const Expanded(child: SizedBox()), // implement chat bubbles
+            Container(
+              color: Colors.grey.shade300,
+              padding: const EdgeInsets.all(20),
+              child: SafeArea(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: GCATextField(
+                        enableFeedback: false,
+                        hintText: 'Message',
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    const Icon(
+                      IconlyBold.send,
+                      color: Colors.deepPurple,
+                      size: 30,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

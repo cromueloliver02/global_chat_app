@@ -5,6 +5,7 @@ import 'package:global_chat/theme/app_theme.dart';
 class GCATextField extends StatelessWidget {
   final TextEditingController? controller;
   final bool? enabled;
+  final bool enableFeedback;
   final AutovalidateMode? autovalidateMode;
   final bool? filled;
   final String? hintText;
@@ -26,6 +27,7 @@ class GCATextField extends StatelessWidget {
     super.key,
     this.controller,
     this.enabled,
+    this.enableFeedback = true,
     this.autovalidateMode,
     this.filled,
     this.hintText,
@@ -58,7 +60,11 @@ class GCATextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         // pre-occupied space for error text
-        counterText: maxLength == null ? ' ' : null,
+        counterText: enableFeedback
+            ? maxLength == null
+                ? ' '
+                : null
+            : null,
         filled: filled,
         fillColor: fillColor,
         suffixIcon: suffixIcon,
