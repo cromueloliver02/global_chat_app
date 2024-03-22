@@ -18,3 +18,9 @@ void showErrorDialog(
     ),
   );
 }
+
+String getInitial(String name) {
+  if (name.isEmpty) return 'C';
+
+  return name.split('').first.toUpperCase();
+}
