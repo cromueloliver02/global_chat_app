@@ -3,7 +3,7 @@ import 'package:core_utils/core_utils.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract interface class ChatRepository {
-  StreamEither<List<Message>> loadMessages();
+  StreamEither<List<ChatBubble>> loadMessages(String chatRoomId);
 
   FutureEither<void> sendMessage(Message message);
 }
@@ -16,12 +16,13 @@ class ProfileRepositoryImpl implements ChatRepository {
   }) : _chatService = chatService;
 
   @override
-  StreamEither<List<Message>> loadMessages() async* {
+  StreamEither<List<ChatBubble>> loadMessages(String chatRoomId) async* {
     try {
-      final Stream<List<Message>> messagesStream = _chatService.loadMessages();
+      final Stream<List<ChatBubble>> chatBubblesStream =
+          _chatService.loadMessages(chatRoomId);
 
-      await for (final List<Message> messages in messagesStream) {
-        yield Right(messages);
+      await for (final List<ChatBubble> chatBubbles in chatBubblesStream) {
+        yield Right(chatBubbles);
       }
     } on ServerException catch (exception) {
       yield Left(ServerFailure(exception));

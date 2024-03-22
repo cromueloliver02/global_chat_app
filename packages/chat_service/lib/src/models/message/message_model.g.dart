@@ -12,7 +12,8 @@ _$MessageImpl _$$MessageImplFromJson(Map<String, dynamic> json) =>
       text: json['text'] as String,
       chatRoomId: json['chatRoomId'] as String,
       senderId: json['senderId'] as String,
-      timestamp: DateTime.parse(json['timestamp'] as String),
+      timestamp:
+          const TimestampConverter().fromJson(json['timestamp'] as Timestamp?),
     );
 
 Map<String, dynamic> _$$MessageImplToJson(_$MessageImpl instance) =>
@@ -21,5 +22,5 @@ Map<String, dynamic> _$$MessageImplToJson(_$MessageImpl instance) =>
       'text': instance.text,
       'chatRoomId': instance.chatRoomId,
       'senderId': instance.senderId,
-      'timestamp': instance.timestamp.toIso8601String(),
+      'timestamp': const TimestampConverter().toJson(instance.timestamp),
     };

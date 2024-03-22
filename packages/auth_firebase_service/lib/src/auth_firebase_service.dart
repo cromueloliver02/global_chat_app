@@ -80,8 +80,8 @@ class AuthFirebaseService implements AuthService {
       if (user == null) {
         throw ServerException(
           HttpStatus.notFound.toString(),
-          Exception('User is null'),
-          message: 'User is not found',
+          Exception('User not found'),
+          message: 'User not found',
           stackTrace: StackTrace.current,
         );
       }

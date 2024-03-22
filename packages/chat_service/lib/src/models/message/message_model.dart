@@ -1,19 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'time_stamp_converter.dart';
 
 part 'message_model.freezed.dart';
 part 'message_model.g.dart';
 
 @freezed
 class Message with _$Message {
-  const Message._();
+  Message._();
 
-  const factory Message({
+  factory Message({
     required String id,
     required String text,
     required String chatRoomId,
     required String senderId,
-    required DateTime timestamp,
+    @TimestampConverter() required DateTime timestamp,
   }) = _Message;
 
   factory Message.fromJson(Map<String, dynamic> json) =>

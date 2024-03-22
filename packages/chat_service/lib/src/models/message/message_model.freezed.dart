@@ -24,6 +24,7 @@ mixin _$Message {
   String get text => throw _privateConstructorUsedError;
   String get chatRoomId => throw _privateConstructorUsedError;
   String get senderId => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get timestamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +42,7 @@ abstract class $MessageCopyWith<$Res> {
       String text,
       String chatRoomId,
       String senderId,
-      DateTime timestamp});
+      @TimestampConverter() DateTime timestamp});
 }
 
 /// @nodoc
@@ -100,7 +101,7 @@ abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
       String text,
       String chatRoomId,
       String senderId,
-      DateTime timestamp});
+      @TimestampConverter() DateTime timestamp});
 }
 
 /// @nodoc
@@ -148,12 +149,12 @@ class __$$MessageImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$MessageImpl extends _Message with DiagnosticableTreeMixin {
-  const _$MessageImpl(
+  _$MessageImpl(
       {required this.id,
       required this.text,
       required this.chatRoomId,
       required this.senderId,
-      required this.timestamp})
+      @TimestampConverter() required this.timestamp})
       : super._();
 
   factory _$MessageImpl.fromJson(Map<String, dynamic> json) =>
@@ -168,6 +169,7 @@ class _$MessageImpl extends _Message with DiagnosticableTreeMixin {
   @override
   final String senderId;
   @override
+  @TimestampConverter()
   final DateTime timestamp;
 
   @override
@@ -222,13 +224,13 @@ class _$MessageImpl extends _Message with DiagnosticableTreeMixin {
 }
 
 abstract class _Message extends Message {
-  const factory _Message(
+  factory _Message(
       {required final String id,
       required final String text,
       required final String chatRoomId,
       required final String senderId,
-      required final DateTime timestamp}) = _$MessageImpl;
-  const _Message._() : super._();
+      @TimestampConverter() required final DateTime timestamp}) = _$MessageImpl;
+  _Message._() : super._();
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$MessageImpl.fromJson;
 
@@ -241,6 +243,7 @@ abstract class _Message extends Message {
   @override
   String get senderId;
   @override
+  @TimestampConverter()
   DateTime get timestamp;
   @override
   @JsonKey(ignore: true)
