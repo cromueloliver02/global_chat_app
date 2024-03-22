@@ -34,7 +34,7 @@ class ChatRoomState with _$ChatRoomState {
 
   factory ChatRoomState.failure(Failure failure) {
     return ChatRoomState(
-      loadStatus: LoadChatRoomsStatus.success,
+      loadStatus: LoadChatRoomsStatus.failure,
       failure: failure,
     );
   }
