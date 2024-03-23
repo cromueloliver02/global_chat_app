@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
+import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:chat_service/chat_service.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ class GCAChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     if (isSender) {
       return BubbleSpecialThree(
+        sent: chatBubble.sent,
         isSender: true,
         text: chatBubble.message.text,
         color: Colors.deepPurple,

@@ -14,6 +14,7 @@ class ChatBubble with _$ChatBubble {
     required String id,
     required Message message,
     required User sender,
+    @Default(true) bool sent,
   }) = _ChatBubble;
 
   factory ChatBubble.fromJson(Map<String, dynamic> json) =>

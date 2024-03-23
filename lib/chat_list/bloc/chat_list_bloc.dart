@@ -21,6 +21,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
   })  : _chatRepository = chatRepository,
         super(ChatListState.initial()) {
     on<ChatListLoaded>(_onChatListLoaded);
+    on<ChatListPendingMessageAdded>(_onChatListPendingMessageAdded);
   }
 
   Future<void> _onChatListLoaded(
@@ -44,5 +45,17 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
         },
       ),
     );
+  }
+
+  void _onChatListPendingMessageAdded(
+    ChatListPendingMessageAdded event,
+    Emitter<ChatListState> emit,
+  ) {
+    final List<ChatBubble> chatBubbles = [
+      event.chatBubble,
+      ...state.chatBubbles,
+    ];
+
+    emit(state.copyWith(chatBubbles: chatBubbles));
   }
 }

@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:global_chat/core/formz_inputs/formz_inputs.dart';
 
@@ -31,14 +32,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ChatMessageSent event,
     Emitter<ChatState> emit,
   ) async {
-    final bool isValid = state.messageInput.isValid;
-
-    if (!isValid) return;
+    if (state.messageInput.isNotValid) return;
 
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 
     final Message message = Message(
-      id: 'id',
+      id: const Uuid().v4(),
       text: state.messageInput.value!,
       chatRoomId: event.chatRoomId,
       senderId: event.senderId,

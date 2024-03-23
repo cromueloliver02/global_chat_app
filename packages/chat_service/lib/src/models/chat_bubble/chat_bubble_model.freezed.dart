@@ -23,6 +23,7 @@ mixin _$ChatBubble {
   String get id => throw _privateConstructorUsedError;
   Message get message => throw _privateConstructorUsedError;
   User get sender => throw _privateConstructorUsedError;
+  bool get sent => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,7 @@ abstract class $ChatBubbleCopyWith<$Res> {
           ChatBubble value, $Res Function(ChatBubble) then) =
       _$ChatBubbleCopyWithImpl<$Res, ChatBubble>;
   @useResult
-  $Res call({String id, Message message, User sender});
+  $Res call({String id, Message message, User sender, bool sent});
 
   $MessageCopyWith<$Res> get message;
   $UserCopyWith<$Res> get sender;
@@ -58,6 +59,7 @@ class _$ChatBubbleCopyWithImpl<$Res, $Val extends ChatBubble>
     Object? id = null,
     Object? message = null,
     Object? sender = null,
+    Object? sent = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -72,6 +74,10 @@ class _$ChatBubbleCopyWithImpl<$Res, $Val extends ChatBubble>
           ? _value.sender
           : sender // ignore: cast_nullable_to_non_nullable
               as User,
+      sent: null == sent
+          ? _value.sent
+          : sent // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -100,7 +106,7 @@ abstract class _$$ChatBubbleImplCopyWith<$Res>
       __$$ChatBubbleImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, Message message, User sender});
+  $Res call({String id, Message message, User sender, bool sent});
 
   @override
   $MessageCopyWith<$Res> get message;
@@ -122,6 +128,7 @@ class __$$ChatBubbleImplCopyWithImpl<$Res>
     Object? id = null,
     Object? message = null,
     Object? sender = null,
+    Object? sent = null,
   }) {
     return _then(_$ChatBubbleImpl(
       id: null == id
@@ -136,6 +143,10 @@ class __$$ChatBubbleImplCopyWithImpl<$Res>
           ? _value.sender
           : sender // ignore: cast_nullable_to_non_nullable
               as User,
+      sent: null == sent
+          ? _value.sent
+          : sent // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -144,7 +155,10 @@ class __$$ChatBubbleImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ChatBubbleImpl extends _ChatBubble with DiagnosticableTreeMixin {
   _$ChatBubbleImpl(
-      {required this.id, required this.message, required this.sender})
+      {required this.id,
+      required this.message,
+      required this.sender,
+      this.sent = true})
       : super._();
 
   factory _$ChatBubbleImpl.fromJson(Map<String, dynamic> json) =>
@@ -156,10 +170,13 @@ class _$ChatBubbleImpl extends _ChatBubble with DiagnosticableTreeMixin {
   final Message message;
   @override
   final User sender;
+  @override
+  @JsonKey()
+  final bool sent;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ChatBubble(id: $id, message: $message, sender: $sender)';
+    return 'ChatBubble(id: $id, message: $message, sender: $sender, sent: $sent)';
   }
 
   @override
@@ -169,7 +186,8 @@ class _$ChatBubbleImpl extends _ChatBubble with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'ChatBubble'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('message', message))
-      ..add(DiagnosticsProperty('sender', sender));
+      ..add(DiagnosticsProperty('sender', sender))
+      ..add(DiagnosticsProperty('sent', sent));
   }
 
   @override
@@ -179,12 +197,13 @@ class _$ChatBubbleImpl extends _ChatBubble with DiagnosticableTreeMixin {
             other is _$ChatBubbleImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.sender, sender) || other.sender == sender));
+            (identical(other.sender, sender) || other.sender == sender) &&
+            (identical(other.sent, sent) || other.sent == sent));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, message, sender);
+  int get hashCode => Object.hash(runtimeType, id, message, sender, sent);
 
   @JsonKey(ignore: true)
   @override
@@ -204,7 +223,8 @@ abstract class _ChatBubble extends ChatBubble {
   factory _ChatBubble(
       {required final String id,
       required final Message message,
-      required final User sender}) = _$ChatBubbleImpl;
+      required final User sender,
+      final bool sent}) = _$ChatBubbleImpl;
   _ChatBubble._() : super._();
 
   factory _ChatBubble.fromJson(Map<String, dynamic> json) =
@@ -216,6 +236,8 @@ abstract class _ChatBubble extends ChatBubble {
   Message get message;
   @override
   User get sender;
+  @override
+  bool get sent;
   @override
   @JsonKey(ignore: true)
   _$$ChatBubbleImplCopyWith<_$ChatBubbleImpl> get copyWith =>

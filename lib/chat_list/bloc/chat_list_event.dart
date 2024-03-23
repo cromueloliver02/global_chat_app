@@ -15,3 +15,12 @@ final class ChatListLoaded extends ChatListEvent {
   @override
   List<Object> get props => [chatRoomId];
 }
+
+final class ChatListPendingMessageAdded extends ChatListEvent {
+  final ChatBubble chatBubble;
+
+  const ChatListPendingMessageAdded(this.chatBubble);
+
+  @override
+  List<Object> get props => [chatBubble];
+}
