@@ -32,10 +32,11 @@ class ChatBubbleList extends StatelessWidget {
 
         return BlocBuilder<AuthBloc, AuthState>(
           buildWhen: (prev, curr) => prev.user!.uid != curr.user!.uid,
-          builder: (ctx, authState) => ListView.builder(
+          builder: (ctx, authState) => ListView.separated(
             reverse: true,
             padding: const EdgeInsets.only(bottom: 20, left: 10),
             itemCount: chatState.chatBubbles.length,
+            separatorBuilder: (ctx, idx) => const SizedBox(height: 10),
             itemBuilder: (ctx, idx) {
               final ChatBubble chatBubble = chatState.chatBubbles[idx];
               final bool isSender =

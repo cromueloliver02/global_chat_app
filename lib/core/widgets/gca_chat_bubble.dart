@@ -39,15 +39,27 @@ class GCAChatBubble extends StatelessWidget {
             ),
           ),
         ),
-        BubbleSpecialThree(
-          isSender: false,
-          text: chatBubble.message.text,
-          color: Colors.grey.shade600,
-          tail: true,
-          textStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                chatBubble.sender.username,
+                style: const TextStyle(fontSize: 12),
+              ),
+            ),
+            BubbleSpecialThree(
+              isSender: false,
+              text: chatBubble.message.text,
+              color: Colors.grey.shade600,
+              tail: true,
+              textStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+          ],
         ),
       ],
     );
