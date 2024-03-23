@@ -1,3 +1,4 @@
+export 'package:global_chat/core/widgets/gca_chat_bubble.dart';
 export 'package:global_chat/core/widgets/gca_empty_card.dart';
 export 'package:global_chat/core/widgets/gca_error_card.dart';
 export 'package:global_chat/core/widgets/gca_error_dialog.dart';

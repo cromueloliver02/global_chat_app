@@ -1,4 +1,3 @@
-import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:chat_service/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,22 +34,16 @@ class ChatBubbleList extends StatelessWidget {
           buildWhen: (prev, curr) => prev.user!.uid != curr.user!.uid,
           builder: (ctx, authState) => ListView.builder(
             reverse: true,
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.only(bottom: 20, left: 10),
             itemCount: chatState.chatBubbles.length,
             itemBuilder: (ctx, idx) {
               final ChatBubble chatBubble = chatState.chatBubbles[idx];
               final bool isSender =
                   authState.user!.uid == chatBubble.sender.uid;
 
-              return BubbleSpecialThree(
+              return GCAChatBubble(
+                chatBubble: chatBubble,
                 isSender: isSender,
-                text: chatBubble.message.text,
-                color: Colors.deepPurple,
-                tail: true,
-                textStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
               );
             },
           ),
