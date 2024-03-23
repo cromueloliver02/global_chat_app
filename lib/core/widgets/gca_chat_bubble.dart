@@ -34,7 +34,7 @@ class GCAChatBubble extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         SizedBox.square(
-          dimension: 20,
+          dimension: 30,
           child: CircleAvatar(
             backgroundImage: CachedNetworkImageProvider(
               chatBubble.sender.profileUrl,
