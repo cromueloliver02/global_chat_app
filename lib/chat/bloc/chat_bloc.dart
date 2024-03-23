@@ -65,7 +65,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ChatMessageChanged event,
     Emitter<ChatState> emit,
   ) {
-    final MessageInput messageInput = MessageInput.dirty(event.message);
+    final MessageInput messageInput = MessageInput.dirty(event.message.trim());
 
     emit(state.copyWith(messageInput: messageInput));
   }
