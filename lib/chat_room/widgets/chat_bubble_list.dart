@@ -36,7 +36,7 @@ class ChatBubbleList extends StatelessWidget {
             reverse: true,
             padding: const EdgeInsets.only(bottom: 20, left: 10),
             itemCount: chatState.chatBubbles.length,
-            separatorBuilder: (ctx, idx) => const SizedBox(height: 10),
+            separatorBuilder: (ctx, idx) => const SizedBox(height: 5),
             itemBuilder: (ctx, idx) {
               final ChatBubble chatBubble = chatState.chatBubbles[idx];
               final bool isSender =
